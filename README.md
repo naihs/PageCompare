@@ -5,4 +5,5 @@
 最好能运行，代码建议放在github上，如果没有条件，回复邮件也可以
 代码简洁，注释要详细*
 
+**NOTICE: 依赖Java8**
 **Usage:  ./gradle run -Pkey=[target key]**
