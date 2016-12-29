@@ -1,0 +1,23 @@
+group 'PageCompare'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    maven {
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+}
+
+dependencies {
+    compileOnly "org.projectlombok:lombok:1.16.12"
+    compile 'org.jsoup:jsoup:1.10.1'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
+}
+
+task run(type: JavaExec, dependsOn: 'classes') {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "com.naihs.pagecompare.Main"
+    args key
+}
