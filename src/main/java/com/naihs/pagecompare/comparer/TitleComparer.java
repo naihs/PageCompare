@@ -10,7 +10,7 @@ import com.naihs.pagecompare.models.ItemContent;
 import com.naihs.pagecompare.models.PageContent;
 
 /**
- * Comparer class for compare titles between 2 page content
+ * 比较两个页面搜索结果各个项的标题
  *
  *
  * @version        1.0, 16/12/28
@@ -18,10 +18,10 @@ import com.naihs.pagecompare.models.PageContent;
  */
 public class TitleComparer extends Comparer {
 
-    /** title comparer name */
+    /** 比较器名称 */
     private static final String NAME = "TITLE_COMPARE";
 
-    /** ignore chars in compare */
+    /**  需排除的字符列表 */
     private static final List<String> ELIMINATE_CHARS = Arrays.asList("\\s*", "_");
 
     /**
@@ -33,14 +33,14 @@ public class TitleComparer extends Comparer {
     }
 
     /**
-     * remove ignored char in source title
+     * 预处理搜索结果的描述
      *
      *
-     * @param source source title
+     * @param source 源标题
      *
-     * @return fixed title
+     * @return 预处理后的标题
      */
-    public String removeIgnoreChars(String source) {
+    private String removeIgnoreChars(String source) {
         for (String eliminateChar : ELIMINATE_CHARS) {
             source = source.replace(eliminateChar, "");
         }
@@ -57,7 +57,6 @@ public class TitleComparer extends Comparer {
         Map<String, ItemContent> baseContentMap;
         HashSet<String>          urlSet;
 
-        // Use content map with max size as base content map
         if (leftContent.getPageItemsMap().size() > rightContent.getPageItemsMap().size()) {
             baseContentMap = rightContent.getPageItemsMap();
             urlSet         = new HashSet<>(leftContent.getPageItemsMap().size());
@@ -81,10 +80,10 @@ public class TitleComparer extends Comparer {
     }
 
     /**
-     * Singleton getter
+     * 获取比较器实例
      *
      *
-     * @return instance of title comparer
+     * @return 标题比较器实例
      */
     public static TitleComparer getComparer() {
         return TitleComparer.ComparerHolder.INSTANCE;

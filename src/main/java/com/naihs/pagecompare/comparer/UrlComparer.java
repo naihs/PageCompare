@@ -11,7 +11,7 @@ import com.naihs.pagecompare.parsers.baidu.UrlFinder;
 import lombok.AllArgsConstructor;
 
 /**
- * Comparer class for compare urls between 2 page content
+ * 比较两个页面搜索结果各个项的标题
  *
  *
  * @version        1.0, 16/12/28
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
  */
 public class UrlComparer extends Comparer {
 
-    /** Url comparer name */
+    /** 比较器名称 */
     private static final String NAME = "URL_COMPARE";
 
     /**
@@ -55,7 +55,7 @@ public class UrlComparer extends Comparer {
 
         for (Map.Entry<String, ItemContent> entry : baseContentMap.entrySet()) {
 
-            // todo: Some result's url is random (like zhidao.baidu.com ...), we need to get their real url
+            // todo: 有一些搜索结果的url是随机变化的（如百度知道），这些结果需要进行二次跳转才能知道真正地址
             if (urlSet.contains(entry.getValue().getUrl())) {
                 sameCount++;
             }
@@ -65,10 +65,10 @@ public class UrlComparer extends Comparer {
     }
 
     /**
-     * Singleton getter
+     * 获取比较器实例
      *
      *
-     * @return instance of url comparer
+     * @return 描述比较器实例
      */
     public static UrlComparer getComparer() {
         return ComparerHolder.INSTANCE;

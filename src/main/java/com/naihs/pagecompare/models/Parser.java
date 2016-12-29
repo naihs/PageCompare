@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import okhttp3.OkHttpClient;
 
 /**
- * Parser abstract class for all parser
+ * Parser抽象
  *
  *
  * @version        1.0 16/12/29
@@ -15,16 +15,16 @@ import okhttp3.OkHttpClient;
  */
 public abstract class Parser {
 
-    /** Public okhttp client, sharing for all parser */
+    /** 公共 OKHTTP CLIENT */
     protected final static OkHttpClient client = new OkHttpClient().newBuilder().build();
 
     /**
-     * abstract parser method
+     * parser逻辑
      *
      *
-     * @param keyWord search target key word
+     * @param keyWord 搜索关键词
      *
-     * @return parsed content container
+     * @return 搜索结果容器PageContent
      *
      * @throws ExecutionException
      * @throws IOException

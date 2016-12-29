@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Parsed search result item class
+ * 搜索结果小项抽象
  *
  *
  * @version        1.0, 16/12/28
@@ -14,20 +14,20 @@ import lombok.Data;
 @AllArgsConstructor
 public abstract class ItemContent {
 
-    /** link url of search result item */
+    /** 单个搜索结果的目标url */
     protected String url;
 
-    /** title text of search result item */
+    /** 单个搜索结果的标题 */
     protected String title;
 
-    /** description text of search result item  (can be null) */
+    /** 单个搜索结果的描述（可能为空） */
     protected String content;
 
     /**
-     * create a key for current item in page container
+     * 获取搜索结果在页面容器中的标识
      *
      *
-     * @return key for current item
+     * @return 搜索结果标识
      */
     abstract public String getKey();
 }

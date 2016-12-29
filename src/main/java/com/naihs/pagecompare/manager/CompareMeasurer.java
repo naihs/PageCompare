@@ -8,36 +8,36 @@ import com.naihs.pagecompare.models.PageContent;
 import com.naihs.pagecompare.models.Parser;
 
 /**
- * Compare measurer
+ * 比较控制器
  *
- * compare similarity between 2 parsed page content with weight
+ * 比较目标网站对于同一个keyword的结果相似度
  *
  * @version        1.0, 16/12/28
  * @author         yexiang
  */
 public class CompareMeasurer {
 
-    /** Registed comparer
-     *  key: comparer
-     *  value: weight
+    /** 比较器容器
+     *  key: 比较器实例
+     *  value: 比较结果权重
      * */
     Map<Comparer, Float> comparerMap = new HashMap<>();
 
-    /** Compare result
-     *  key: comparer name
-     *  value: compare result for this comparer
+    /** 比较结果容器
+     *  key: 比较器名称
+     *  value: 该比较器比较结果
      * */
     Map<String, Float> resultMap = new HashMap<>();
 
     /**
-     * compare result from 2 parser on key word
+     * 比较两个parser在搜索keyword的结果相似度
      *
      *
-     * @param leftParser parser instance
-     * @param rightParser parser instance
-     * @param keyWord target search key word
+     * @param leftParser 待比较的parser实例
+     * @param rightParser 待比较的parser实例
+     * @param keyWord 搜索关键字
      *
-     * @return similarity ratio with weight
+     * @return 计算权重的相似度结果
      *
      * @throws ExecutionException
      * @throws InterruptedException
@@ -87,11 +87,11 @@ public class CompareMeasurer {
     }
 
     /**
-     * registe a comparer
+     * 注册比较器
      *
      *
-     * @param comparer comparer instance
-     * @param weight weight on this comparer
+     * @param comparer 欲注册的比较器实例
+     * @param weight 该比较器权重
      *
      * @throws Exception
      */
@@ -104,7 +104,7 @@ public class CompareMeasurer {
     }
 
     /**
-     * Reset registed comparers
+     * 清空已注册的比较器
      *
      */
     public void resetComparers() {
@@ -112,24 +112,24 @@ public class CompareMeasurer {
     }
 
     /**
-     * Get compare result on every comparers
+     * 获取结果Map
      *
      *
-     * @return Compare result
-     *          key: comparer name
-     *          value: compare result for this comparer
+     * @return 比较结果Map
+     *          key: 比较器名
+     *          value: 该比较器比较结果
      */
     public Map<String, Float> getDetails() {
         return resultMap;
     }
 
     /**
-     * Calculate total weight
+     * 计算总权重
      *
      *
-     * @return total weight
+     * @return 所有比较器的总权重
      */
-    public float getTotalWeight() {
+    private float getTotalWeight() {
         float totalWeight = comparerMap.values().stream().reduce(0.0f, (x, y) -> (x + y));
 
         return (totalWeight > 0)

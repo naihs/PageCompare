@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Comparer abstract, all comparers extend this class
+ * 比较器抽象
  *
  *
  * @version        1.0, 16/12/28
@@ -14,17 +14,17 @@ import lombok.Data;
 @AllArgsConstructor
 public abstract class Comparer {
 
-    /** comparer's name */
+    /** 比较器名称 */
     protected String name;
 
     /**
-     * Get similarity ration between 2 page content
+     * 获取两个页面搜索结果的相似度
      *
      *
-     * @param leftContent parsed and waiting comparing page content
-     * @param rightContent parsed and waiting comparing page content
+     * @param leftContent 页面搜索结果容器
+     * @param rightContent 页面搜索结果容器
      *
-     * @return similarity ratio
+     * @return 相似度
      */
     abstract public float similarityRatio(PageContent leftContent, PageContent rightContent);
 }

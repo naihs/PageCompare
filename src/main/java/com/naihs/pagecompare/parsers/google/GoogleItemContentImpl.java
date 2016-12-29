@@ -3,7 +3,7 @@ package com.naihs.pagecompare.parsers.google;
 import com.naihs.pagecompare.models.ItemContent;
 
 /**
- * Content item implementation for google search result
+ * Google页面搜索结果小项
  *
  *
  * @version        1.0., 16/12/29
@@ -12,12 +12,12 @@ import com.naihs.pagecompare.models.ItemContent;
 public class GoogleItemContentImpl extends ItemContent {
 
     /**
-     * Constructs for google search result item
+     * 构造器
      *
      *
-     * @param url url of search result item
-     * @param title title text of search result item
-     * @param content description text for search result item
+     * @param url 单个搜索结果的目标url
+     * @param title 单个搜索结果的标题
+     * @param content 单个搜索结果的描述（可能为空）
      */
     public GoogleItemContentImpl(String url, String title, String content) {
         super(url, title, content);
@@ -25,6 +25,6 @@ public class GoogleItemContentImpl extends ItemContent {
 
     @Override
     public String getKey() {
-        return this.title;    // Use title as index
+        return this.title;
     }
 }

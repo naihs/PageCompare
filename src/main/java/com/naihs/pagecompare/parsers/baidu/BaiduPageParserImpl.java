@@ -26,16 +26,16 @@ import okhttp3.Response;
  */
 public class BaiduPageParserImpl extends Parser {
 
-    /** Baidu search request url formatting */
+    /** Baidu 默认搜索请求格式 */
     private static final String BAIDU_SEARCH_FORMAT = "http://www.baidu.com/baidu?word=%s";
-    /** formatting for JSoup to search by class */
+    /** JSoup根据类名查找元素格式 */
     private static final String SELECT_CLASS_FORMAT = "[class='%s']";
-    /** target characteristic 1 - direct linker */
+    /** 目标特征1 - 单个的搜索结果 */
     private static final String RESULT_CONTAINER_CHARA = String.format(SELECT_CLASS_FORMAT, "result c-container ");
-    /** target characteristic 2 - items linker */
+    /** 目标特征2 - 包含子项的搜索结果 */
     private static final String RESULT_OP_CONTAINER_CHARA = String.format(SELECT_CLASS_FORMAT,
                                                                           "result-op c-container xpath-log");
-    /** target description characteristic */
+    /** 描述特征 */
     private static final String CONTENT_CHARA = "div.c-abstract";
 
     private UrlFinder urlFinder = new UrlFinder();
@@ -58,19 +58,19 @@ public class BaiduPageParserImpl extends Parser {
     /**
      * Singleton getter
      *
-     * @return instance of Baidu page parser
+     * @return 百度页面Parser实例
      */
     public static BaiduPageParserImpl getParser() {
         return ParserHolder.INSTANCE;
     }
 
     /**
-     * Get direct linker item
+     * 获取单个搜索结果项
      *
      *
-     * @param fullDoc full parsed document
+     * @param fullDoc 页面Doc
      *
-     * @return all direct linker item
+     * @return 所有单个搜索结果项
      *
      * @throws IOException
      */
@@ -89,15 +89,15 @@ public class BaiduPageParserImpl extends Parser {
     }
 
     /**
-     * Get items linker
+     * 获取包含子项的搜索结果项的子项
      *
      *
-     * @param fullDoc full parsed document
+     * @param fullDoc 页面Doc
      *
-     * @return all items linker item
+     * @return all 所有搜索结果子项
      */
     private List<ItemContent> getResultOpContainerItem(Document fullDoc) {
-        // father item
+        // 包含子项的搜索结果特征
         final String      COFFSET_MARK_SELECT = String.format(SELECT_CLASS_FORMAT, "c-offset");
         final String      CROW_MARK_SELECT    = String.format(SELECT_CLASS_FORMAT, "c-row");
         List<ItemContent> contents            = new ArrayList<>();
@@ -107,7 +107,7 @@ public class BaiduPageParserImpl extends Parser {
             Elements rowItems = h3Items.select(COFFSET_MARK_SELECT);
 
             if (rowItems.size() > 0) {
-                // if current item is a father item, parser every child items.
+                // 如果该项包含子项，则只使用子项作为搜索结果
                 for (Element rowItem : rowItems.select(CROW_MARK_SELECT)) {
                     Element aNode = rowItem.select(HtmlTags.A.name()).first();
 

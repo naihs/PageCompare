@@ -3,7 +3,7 @@ package com.naihs.pagecompare.parsers.baidu;
 import com.naihs.pagecompare.models.ItemContent;
 
 /**
- * Content item implementation for baidu search result
+ * Baidu页面搜索结果小项
  *
  *
  * @version        1.0., 16/12/29
@@ -12,12 +12,12 @@ import com.naihs.pagecompare.models.ItemContent;
 public class BaiduItemContentImpl extends ItemContent {
 
     /**
-     * Constructs for baidu search result item
+     * 构造器
      *
      *
-     * @param url url of search result item
-     * @param title title text of search result item
-     * @param content description text for search result item
+     * @param url 单个搜索结果的目标url
+     * @param title 单个搜索结果的标题
+     * @param content 单个搜索结果的描述（可能为空）
      */
     public BaiduItemContentImpl(String url, String title, String content) {
         super(url, title, content);

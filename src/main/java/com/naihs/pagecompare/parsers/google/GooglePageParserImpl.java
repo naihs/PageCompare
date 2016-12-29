@@ -25,31 +25,31 @@ import okhttp3.Response;
  */
 public class GooglePageParserImpl extends Parser {
 
-    /** Google search request url formatting */
+    /** Google 默认搜索请求格式 */
     private static final String GOOGLE_SEARCH_FORMAT = "https://www.google.com/search?q=%s";
 
-    /** formatting for JSoup to search by div's class */
+    /** JSoup根据div类名查找表达式 */
     private static final String SELECT_DIV_CLASS_FORMAT = "div.%s";
 
-    /** formatting for JSoup to search by h3's class */
+    /** JSoup根据h3类名查找表达式 */
     private static final String SELECT_H3_CLASS_FORMAT = "h3.%s";
 
-    /** formatting for JSoup to search by span's class */
+    /** JSoup根据span类名查找表达式 */
     private static final String SELECT_SPAN_CLASS_FORMAT = "span.%s";
 
-    /** target block's characteristic */
+    /** 搜索项字段特征 */
     private static final String TARGET_BLOCK_CHARA = String.format(SELECT_DIV_CLASS_FORMAT, "g");
 
-    /** target title's characteristic */
+    /** 标题字段特征 */
     private static final String TITLE_URL_BLOCK_CHARA = String.format(SELECT_H3_CLASS_FORMAT, "r");
 
-    /** target description's characteristic */
+    /** 描述字段特征 */
     private static final String CONTENT_BLOCK_CHARA = String.format(SELECT_SPAN_CLASS_FORMAT, "st");
 
-    /** request header key */
+    /** 请求头key */
     private static final String HEADER_KEY = "user-agent";
 
-    /** request header value */
+    /** 模拟浏览器请求 */
     private static final String HEADER_VALUE = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
                                                + "(KHTML, like Gecko) Chrome/53.0.2785.101 Safari/537.36";
 
@@ -68,15 +68,15 @@ public class GooglePageParserImpl extends Parser {
             Element contentNode = item.select(CONTENT_BLOCK_CHARA).first();
 
             if (null == aNode) {
-                // Not all 'div.g' tag has <a> child
-                // Not parse those 'div.g' tags
+                // 并非所有的div.g都包含有a标签
+                // 忽略不包含a标签的div.g
                 continue;
             }
 
             if (null != contentNode) {
                 content = contentNode.text();
             } else {
-                // Some result not description, use null as description
+                // 一些搜索结果不包含描述
                 content = null;
             }
 

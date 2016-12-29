@@ -7,9 +7,9 @@ import java.util.Map;
 import lombok.Data;
 
 /**
- * Page content container
+ * 页面容器
  *
- * save all parsed items from parser
+ * 每个搜索请求的所有结果均使用该容器保存
  *
  * @version        1.0, 16/12/29
  * @author         yexiang
@@ -17,25 +17,25 @@ import lombok.Data;
 @Data
 public class PageContent {
 
-    /** parsed result container
-     *  key :  from item.getKey()
-     *  value: parsed item
+    /** 搜索结果ma
+     *  key :  搜索结果项标识
+     *  value: 搜索结果项
      *  */
     private Map<String, ItemContent> pageItemsMap = new HashMap<>();
 
     /**
-     * Add a item into container, key from item.getKey()
+     * 加入一个搜索结果项
      *
-     * @param item parsed item
+     * @param item 搜索结果项
      */
     public void addItem(ItemContent item) {
         pageItemsMap.put(item.getKey(), item);
     }
 
     /**
-     * Add some parsed items, key from item.getKey()
+     * 加入一组搜索结果
      *
-     * @param items item list
+     * @param items 搜索结果List
      */
     public void addItems(List<ItemContent> items) {
         items.forEach(this::addItem);

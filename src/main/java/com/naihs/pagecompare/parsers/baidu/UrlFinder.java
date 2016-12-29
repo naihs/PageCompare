@@ -19,7 +19,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Finder on baidu search result linker
+ * 获取百度搜索结果的真实Url工具类
  *
  *
  * @version        1.0, 16/12/29
@@ -33,12 +33,12 @@ public class UrlFinder {
     private Queue<ItemContent> itemQueue;
 
     /**
-     * Update real url from every item in source content
+     * 更新所有搜索结果中的url为真实url
      *
      *
-     * @param sourceContent source content with baidu redirection url
+     * @param sourceContent 搜索结果页面容器
      *
-     * @return updated page content with real url in every items
+     * @return 更新后的搜索结果页面容器
      *
      * @throws ExecutionException
      * @throws InterruptedException
@@ -89,12 +89,12 @@ public class UrlFinder {
     }
 
     /**
-     * Get real url from source url string
+     * 获取真实url
      *
      *
-     * @param sourceUrl Baidu redirection url
+     * @param sourceUrl 搜索结果中的原始url
      *
-     * @return real url string.
+     * @return 真实url
      *
      * @throws IOException
      */
@@ -102,7 +102,7 @@ public class UrlFinder {
         Response resp = client.newCall(new Request.Builder().url(sourceUrl).build()).execute();
 
         if (HTTP_OK == resp.code()) {
-            // 200, target page is a js, use pattern to find real url
+            // 原始url指向页面为200，此时页面为跳转js脚本，用正则爬目标
             Matcher mt = pt.matcher(resp.body().string());
 
             if (mt.find()) {
@@ -111,7 +111,7 @@ public class UrlFinder {
                 return sourceUrl;
             }
         } else if (HTTP_MOVED_TEMP == resp.code()) {
-            // 302 - redirect, find real url on header
+            // 原始url指向页面为302重定向，从头中获取真实地址
             return resp.header(TARGET_URL_NAME);
         } else {
             return sourceUrl;

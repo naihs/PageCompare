@@ -10,7 +10,7 @@ import com.naihs.pagecompare.models.ItemContent;
 import com.naihs.pagecompare.models.PageContent;
 
 /**
- * Comparer class for compare titles between 2 page content
+ * 比较两个页面搜索结果各个项的描述
  *
  *
  * @version        1.0, 16/12/28
@@ -18,14 +18,14 @@ import com.naihs.pagecompare.models.PageContent;
  */
 public class DescriptionComparer extends Comparer {
 
-    /** description comparer name */
+    /** 比较器名称 */
     private static final String NAME = "CONTENT_COMPARE";
 
-    /** Ignored chars in compared */
+    /** 需排除的字符列表 */
     private static final List<String> IGNORED_CHARS = Arrays.asList("\\s*", "_");
 
-    /** Compare length on every descriptions */
-    private static final int COMPARE_LENGTH = 10;    // Compare first 10 chars
+    /** 比较长度n，取前n个字符作为比较依据 */
+    private static final int COMPARE_LENGTH = 10;
 
     /**
      * Constructs ...
@@ -44,7 +44,6 @@ public class DescriptionComparer extends Comparer {
         Map<String, ItemContent> baseContentMap;
         HashSet<String>          urlSet;
 
-        // Use content map with max size as base content map
         if (leftContent.getPageItemsMap().size() > rightContent.getPageItemsMap().size()) {
             baseContentMap = rightContent.getPageItemsMap();
             urlSet         = new HashSet<>(leftContent.getPageItemsMap().size());
@@ -55,14 +54,14 @@ public class DescriptionComparer extends Comparer {
             rightContent.getPageItemsMap().values().forEach(item -> urlSet.add(getCompareTargetStr(item.getContent())));
         }
 
-        urlSet.remove(null);    // Remove null description if exist
+        urlSet.remove(null);    // 移除描述为空的项
 
         int baseCount = urlSet.size();
         int sameCount = 0;
 
         for (Map.Entry<String, ItemContent> entry : baseContentMap.entrySet()) {
 
-            // Not compare null content
+            // 不比较为空的项
             if (null == entry.getValue().getContent()) {
                 continue;
             }
@@ -76,24 +75,24 @@ public class DescriptionComparer extends Comparer {
     }
 
     /**
-     * remove ignored chars and fix description length
+     * 预处理搜索结果的描述
      *
      *
-     * @param sourceStr result description
+     * @param sourceStr 搜索结果描述
      *
-     * @return fixed result description
+     * @return 预处理后的搜索结果描述
      */
-    public static String getCompareTargetStr(String sourceStr) {
+    private static String getCompareTargetStr(String sourceStr) {
         if (null == sourceStr) {
             return null;
         }
 
-        // Fix comparing descriptions' length
+        // 截取过长的描述
         if (sourceStr.length() > COMPARE_LENGTH) {
             sourceStr = sourceStr.substring(0, COMPARE_LENGTH - 1);
         }
 
-        // Remove ignored chars in comparing descriptions
+        // 移除需要忽略的字符
         for (String eliminateChar : IGNORED_CHARS) {
             sourceStr = sourceStr.replace(eliminateChar, "");
         }
@@ -102,28 +101,20 @@ public class DescriptionComparer extends Comparer {
     }
 
     /**
-     * Method description
+     * 获取比较器实例
      *
      *
-     * @return
+     * @return 描述比较器实例
      */
     public static DescriptionComparer getComparer() {
         return DescriptionComparer.ComparerHolder.INSTANCE;
     }
 
     /**
-     * Class description
-     *
-     *
-     * @version        Enter version here..., 16/12/29
-     * @author         Enter your name here...
+     * 单例Holder
      */
     private static class ComparerHolder {
-
-        /** Field description */
         private static DescriptionComparer INSTANCE = new DescriptionComparer();
     }
 }
 
-
-//~ Formatted by Jindent --- http://www.jindent.com
